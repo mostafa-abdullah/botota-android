@@ -7,10 +7,6 @@ import org.json.JSONException;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by mostafa on 02/12/16.
- */
-
 public class SendButtonActionListener implements View.OnClickListener {
 
     EditText messageInput;
@@ -23,23 +19,26 @@ public class SendButtonActionListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        try {
-            this.sendMessage();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        this.sendMessage();
     }
 
-    private void sendMessage() throws UnsupportedEncodingException, JSONException {
+    /**
+     * Calls the API with the message entered by the user
+     */
+    private void sendMessage() {
         String text = this.messageInput.getText().toString();
 
         if (text.trim().equals("")) {
             return;
         }
 
-        apiHandler.sendMessage(text);
+        try {
+            apiHandler.sendMessage(text);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
         this.messageInput.setText("");
     }
 }

@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-/**
- * Created by mostafa on 03/12/16.
- */
 
 public class MessageAdapter extends BaseAdapter{
     ArrayList<Message> messages;
@@ -25,6 +22,9 @@ public class MessageAdapter extends BaseAdapter{
         this.messages = new ArrayList<Message>();
         this.messageContext = messageContext;
         layoutInflater = (LayoutInflater) messageContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
+        ListView messagesView = (ListView) ((Activity) messageContext).findViewById(R.id.messages_view);
+        messagesView.setAdapter(this);
     }
 
     @Override
@@ -52,9 +52,8 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.avatar = (ImageView) view.findViewById(R.id.avatar);
             viewHolder.name = (TextView) view.findViewById(R.id.name);
 
-
             viewHolder.name.setText(message.getSender() == Sender.ME ? "Me" : "Botota");
-            // TODO set profile pic here
+            viewHolder.avatar.setImageResource(message.getSender() == Sender.ME ? R.drawable.hiker : R.drawable.botota);
 
             configureNameLayout(viewHolder, message.getSender());
         }
@@ -65,15 +64,20 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.messageHighlight = (TextView) view.findViewById(R.id.highlight);
 
             setMessageViewComponents(viewHolder, message);
-
             configureMessageLayout(viewHolder, message.getSender());
         }
 
         return view;
     }
 
+    /**
+     * Maps the message contents to the corresponding UI elements in the activity
+     * @param viewHolder The holder for the UI elements
+     * @param message The message to be displayed
+     */
     private void setMessageViewComponents(MessageViewHolder viewHolder, Message message) {
         if(message.getImage() == null || message.getImage().trim().isEmpty()) {
+            // No message image
             viewHolder.messageImage.setVisibility(View.GONE);
         }
         else {
@@ -81,6 +85,7 @@ public class MessageAdapter extends BaseAdapter{
         }
 
         if(message.getText() == null || message.getText().trim().isEmpty()) {
+            // No message body
             viewHolder.messageBody.setVisibility(View.GONE);
         }
         else {
@@ -88,40 +93,60 @@ public class MessageAdapter extends BaseAdapter{
         }
 
         if(message.getHighlight() == null || message.getHighlight().trim().isEmpty()) {
+            // No message highlight
             viewHolder.messageHighlight.setVisibility(View.GONE);
         }
         else {
-            viewHolder.messageHighlight.setText(message.getText());
+            viewHolder.messageHighlight.setText(message.getHighlight());
         }
     }
 
+    /**
+     * Adds a new message to the ListView
+     * @param message
+     */
     public void add(Message message) {
         messages.add(message);
         this.notifyDataSetChanged();
     }
 
+    /**
+     * Holder for the name
+     */
     private class NameViewHolder {
         ImageView avatar;
         TextView name;
     }
 
+    /**
+     * Holder for the message
+     */
     private class MessageViewHolder {
         ImageView messageImage;
         TextView messageBody;
         TextView messageHighlight;
     }
 
+    /**
+     * Configure the layout for the name:
+     * Botota: left aligned
+     * User: Right aligned
+     * @param viewHolder
+     * @param sender
+     */
     private void configureNameLayout(NameViewHolder viewHolder, Sender sender) {
         int marginLeft = 25;
         int marginTop = 15;
         int marginRight = 0;
         int marginBottom = 0;
         int layoutAlignment = RelativeLayout.ALIGN_PARENT_LEFT;
+        int namePosition = RelativeLayout.RIGHT_OF;
 
         if(sender == Sender.ME) {
             marginLeft = 0;
             marginRight = 25;
             layoutAlignment = RelativeLayout.ALIGN_PARENT_RIGHT;
+            namePosition = RelativeLayout.LEFT_OF;
         }
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)viewHolder.avatar.getLayoutParams();
@@ -130,11 +155,18 @@ public class MessageAdapter extends BaseAdapter{
         viewHolder.avatar.setLayoutParams(params);
 
         params = (RelativeLayout.LayoutParams)viewHolder.name.getLayoutParams();
-        params.addRule(layoutAlignment);
         params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+        params.addRule(namePosition, R.id.avatar);
         viewHolder.name.setLayoutParams(params);
     }
 
+    /**
+     * Configure the layout for the message:
+     * Botota: left aligned
+     * User: Right aligned
+     * @param viewHolder
+     * @param sender
+     */
     private void configureMessageLayout(MessageViewHolder viewHolder, Sender sender) {
         int marginLeft = 25;
         int marginTop = 15;

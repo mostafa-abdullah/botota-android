@@ -1,19 +1,15 @@
 package com.example.mostafa.botota;
 
-/**
- * Created by mostafa on 03/12/16.
- */
-
 public class Message {
     private String highlight;
-    private String text;
+    private String value;
     private String image;
     private int layout;
     private Sender sender;
 
     public Message(String highlight, String text, String image, int layout, Sender sender) {
         this.highlight = highlight;
-        this.text = text;
+        this.value = text;
         this.image = image;
         this.layout = layout;
         this.sender = sender;
@@ -24,7 +20,7 @@ public class Message {
     }
 
     public String getText() {
-        return text;
+        return value;
     }
 
     public String getImage() {
