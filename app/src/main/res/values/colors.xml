@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3D1614</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#563E33</color>
+    <color name="colorAccent">#563e33</color>
     <color name="bototaColor">#D6C4B4</color>
     <color name="userColor">#260808</color>
     <color name="userText">#D8BB9C</color>

@@ -15,6 +15,10 @@ public class Message {
         this.sender = sender;
     }
 
+    public void normalizeText() {
+        this.value = this.value.replace("\n", "\r\n");
+    }
+
     public String getHighlight() {
         return highlight;
     }
