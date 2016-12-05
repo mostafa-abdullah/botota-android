@@ -12,4 +12,18 @@
         android:layout_marginTop="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="A traveller's best friend..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:id="@+id/splashText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+        android:fontFamily="serif"
+        android:textSize="14sp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold|italic"
+        android:textAlignment="center" />
 </RelativeLayout>
