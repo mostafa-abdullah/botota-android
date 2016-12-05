@@ -20,6 +20,7 @@
         android:stackFromBottom="true"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         />
 
     <LinearLayout
