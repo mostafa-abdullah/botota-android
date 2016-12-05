@@ -18,6 +18,9 @@
         android:id="@+id/messages_view"
         android:transcriptMode="alwaysScroll"
         android:stackFromBottom="true"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         />
 
     <LinearLayout
