@@ -2,6 +2,8 @@ package com.example.mostafa.botota;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MessageAdapter extends BaseAdapter{
@@ -81,7 +87,10 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.messageImage.setVisibility(View.GONE);
         }
         else {
-            // TODO put image in body here
+            Picasso.with(messageContext).
+                    load(message.getImage()).
+                    into(viewHolder.messageImage);
+
         }
 
         if(message.getText() == null || message.getText().trim().isEmpty()) {
