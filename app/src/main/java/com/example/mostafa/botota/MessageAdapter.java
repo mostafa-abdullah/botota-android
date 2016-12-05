@@ -13,7 +13,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
-
+import com.squareup.picasso.Picasso;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MessageAdapter extends BaseAdapter{
@@ -85,7 +89,10 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.messageImage.setVisibility(View.GONE);
         }
         else {
-            // TODO put image in body here
+            Picasso.with(messageContext).
+                    load(message.getImage()).
+                    into(viewHolder.messageImage);
+
         }
 
         if(message.getText() == null || message.getText().trim().isEmpty()) {
