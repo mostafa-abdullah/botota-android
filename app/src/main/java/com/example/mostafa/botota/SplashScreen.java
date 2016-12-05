@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity{
+
+    final int splashTimer = 3000; // milliseconds
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -13,7 +16,7 @@ public class SplashScreen extends AppCompatActivity{
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    sleep(3000);
+                    sleep(splashTimer);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
