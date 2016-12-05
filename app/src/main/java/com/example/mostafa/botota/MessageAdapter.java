@@ -2,6 +2,8 @@ package com.example.mostafa.botota;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.graphics.PorterDuff.Mode;
 
 import java.util.ArrayList;
 
@@ -62,9 +65,10 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.messageImage = (ImageView) view.findViewById(R.id.image);
             viewHolder.messageBody = (TextView) view.findViewById(R.id.body);
             viewHolder.messageHighlight = (TextView) view.findViewById(R.id.highlight);
-
+            viewHolder.bubble = (RelativeLayout) view.findViewById(R.id.bubble);
             setMessageViewComponents(viewHolder, message);
             configureMessageLayout(viewHolder, message.getSender());
+
         }
 
         return view;
@@ -125,6 +129,7 @@ public class MessageAdapter extends BaseAdapter{
         ImageView messageImage;
         TextView messageBody;
         TextView messageHighlight;
+        RelativeLayout bubble;
     }
 
     /**
@@ -170,15 +175,20 @@ public class MessageAdapter extends BaseAdapter{
     private void configureMessageLayout(MessageViewHolder viewHolder, Sender sender) {
         int marginLeft = 25;
         int marginTop = 15;
-        int marginRight = 0;
+        int marginRight = 10;
         int marginBottom = 0;
         int layoutAlignment = RelativeLayout.ALIGN_PARENT_LEFT;
 
         if(sender == Sender.ME) {
-            marginLeft = 0;
-            marginRight = 25;
             layoutAlignment = RelativeLayout.ALIGN_PARENT_RIGHT;
+            viewHolder.messageBody.setTextColor(messageContext.getResources().getColor(R.color.userText));
+            viewHolder.messageHighlight.setTextColor(messageContext.getResources().getColor(R.color.userText));
+            viewHolder.bubble.getBackground().setColorFilter(messageContext.getResources().getColor(R.color.userColor), Mode.SRC_ATOP);
         }
+        else{
+            viewHolder.bubble.getBackground().setColorFilter(messageContext.getResources().getColor(R.color.bototaColor), Mode.SRC_ATOP);
+        }
+
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)viewHolder.messageHighlight.getLayoutParams();
         params.addRule(layoutAlignment);
