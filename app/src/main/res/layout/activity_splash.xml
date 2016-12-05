@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/botota"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="27dp" />
+
+    <TextView
+        android:text="A traveller's best friend..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splashText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+        android:fontFamily="serif"
+        android:textSize="14sp"
+        android:textStyle="normal|bold|italic"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Botota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/textView"
+        android:textSize="36sp"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/white"
+        android:lineSpacingExtra="12sp"
+        android:layout_above="@+id/splashText"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Botota</string>
-    <string name="welcome_endpoint">http://10.0.2.2:3000/welcome</string>
-    <string name="chat_endpoint">http://10.0.2.2:3000/chat</string>
+    <string name="welcome_endpoint">https://botota.herokuapp.com/welcome</string>
+    <string name="chat_endpoint">https://botota.herokuapp.com/chat</string>
 </resources>
