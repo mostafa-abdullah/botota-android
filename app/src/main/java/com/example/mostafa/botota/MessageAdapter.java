@@ -53,7 +53,7 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.name = (TextView) view.findViewById(R.id.name);
 
             viewHolder.name.setText(message.getSender() == Sender.ME ? "Me" : "Botota");
-            viewHolder.avatar.setImageResource(message.getSender() == Sender.ME ? R.drawable.hiker : R.drawable.botota);
+            viewHolder.avatar.setImageResource(message.getSender() == Sender.ME ? R.drawable.traveller : R.drawable.botota);
 
             configureNameLayout(viewHolder, message.getSender());
         }
