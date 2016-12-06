@@ -2,11 +2,14 @@ package com.example.mostafa.botota;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +29,15 @@ public class MessageAdapter extends BaseAdapter{
 
         ListView messagesView = (ListView) ((Activity) messageContext).findViewById(R.id.messages_view);
         messagesView.setAdapter(this);
+    }
+    /**
+     * Holder for the message
+     */
+    private class MessageViewHolder {
+        ImageView messageImage;
+        TextView messageBody;
+        TextView messageHighlight;
+        LinearLayout bubble;
     }
 
     @Override
@@ -63,7 +75,7 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.messageImage = (ImageView) view.findViewById(R.id.image);
             viewHolder.messageBody = (TextView) view.findViewById(R.id.body);
             viewHolder.messageHighlight = (TextView) view.findViewById(R.id.highlight);
-            viewHolder.bubble = (RelativeLayout) view.findViewById(R.id.bubble);
+            viewHolder.bubble = (LinearLayout) view.findViewById(R.id.bubble);
             setMessageViewComponents(viewHolder, message);
             configureMessageLayout(viewHolder, message.getSender());
 
@@ -124,15 +136,6 @@ public class MessageAdapter extends BaseAdapter{
         TextView name;
     }
 
-    /**
-     * Holder for the message
-     */
-    private class MessageViewHolder {
-        ImageView messageImage;
-        TextView messageBody;
-        TextView messageHighlight;
-        RelativeLayout bubble;
-    }
 
     /**
      * Configure the layout for the name:
@@ -176,13 +179,13 @@ public class MessageAdapter extends BaseAdapter{
      */
     private void configureMessageLayout(MessageViewHolder viewHolder, Sender sender) {
         int marginLeft = 25;
-        int marginTop = 15;
-        int marginRight = 10;
+        int marginTop = 10;
+        int marginRight = 0;
         int marginBottom = 0;
-        int layoutAlignment = RelativeLayout.ALIGN_PARENT_LEFT;
+        int layoutAlignment = Gravity.LEFT;
 
         if(sender == Sender.ME) {
-            layoutAlignment = RelativeLayout.ALIGN_PARENT_RIGHT;
+            layoutAlignment = Gravity.RIGHT;
             viewHolder.messageBody.setTextColor(messageContext.getResources().getColor(R.color.userText));
             viewHolder.messageHighlight.setTextColor(messageContext.getResources().getColor(R.color.userText));
             viewHolder.bubble.getBackground().setColorFilter(messageContext.getResources().getColor(R.color.userColor), Mode.SRC_ATOP);
@@ -191,20 +194,9 @@ public class MessageAdapter extends BaseAdapter{
             viewHolder.bubble.getBackground().setColorFilter(messageContext.getResources().getColor(R.color.bototaColor), Mode.SRC_ATOP);
         }
 
-
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)viewHolder.messageHighlight.getLayoutParams();
-        params.addRule(layoutAlignment);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)viewHolder.bubble.getLayoutParams();
         params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
-        viewHolder.messageHighlight.setLayoutParams(params);
-
-        params = (RelativeLayout.LayoutParams)viewHolder.messageBody.getLayoutParams();
-        params.addRule(layoutAlignment);
-        params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
-        viewHolder.messageBody.setLayoutParams(params);
-
-        params = (RelativeLayout.LayoutParams)viewHolder.messageImage.getLayoutParams();
-        params.addRule(layoutAlignment);
-        params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
-        viewHolder.messageImage.setLayoutParams(params);
+        params.gravity = layoutAlignment;
+        viewHolder.bubble.setLayoutParams(params);
     }
 }
